@@ -1,5 +1,9 @@
 # calculadora
 
+## Live Preview
+
+[ernestoweb.dev/calculadora-logica-proposicional](https://ernestoweb.dev/calculadora-logica-proposicional/)
+
 ## Project setup
 ```
 npm install
