@@ -59,22 +59,6 @@ export default new Vuex.Store({
     result({ commit }, proposicion) {
       return new Promise((resolve, reject) => {
         setTimeout(() => {
-          /*let tipo = 'proposicion'
-          proposicion = proposicion.split("≡")
-          if (proposicion.length > 1) {
-            tipo = 'equivalencia'
-          }
-          let propo = undefined
-          let res = []
-          for (let i = 0; i < proposicion.length; i++) {
-            propo = new Logica(proposicion[i])
-            if (!propo.esValida()) {
-              reject(propo.error)
-            }
-            propo.tablaDeVerdad()
-            res.push(propo)
-          }
-          commit('result', { tipo, res })*/
           let propo = new Logica(proposicion)
           if (!propo.esValida()) {
             reject(propo.error)
