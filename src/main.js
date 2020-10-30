@@ -10,8 +10,9 @@ import '@fortawesome/fontawesome-free/css/all.css'
 
 Vue.config.productionTip = false
 //-- Initialize Google Analytics tracking.
+//console.log(process.env)
 Vue.use(VueAnalytics, {
-  id: process.env.GA_TRACKING_ID,
+  id: process.env.VUE_APP_GA_TRACKING_ID,
   router
 });
 new Vue({
