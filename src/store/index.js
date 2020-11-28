@@ -1,83 +1,13 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import { Logica } from '../LogicaProposicional'
+
+import { LogicaProposicional } from './modules/LogicaProposicional'
+import { Relaciones } from './modules/Relaciones'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
-  state: {
-    results: [],
-    conectores: [
-      {
-        tipo: 'Negación',
-        sim: '~'
-      },
-      {
-        tipo: 'Conjunción',
-        sim: '∧'
-      },
-      {
-        tipo: 'Disyunción',
-        sim: '∨'
-      },
-      {
-        tipo: 'Implicación',
-        sim: '→'
-      },
-      {
-        tipo: 'Doble implicación',
-        sim: '↔'
-      },
-      {
-        tipo: 'Disyunción exclusiva',
-        sim: '⨁'
-      },
-      {
-        tipo: 'Equivalencia',
-        sim: '≡'
-      }
-    ]
-  },
-  getters: {
-    conectores: state => {
-      return state.conectores
-    },
-    results: state => {
-      return state.results
-    }
-  },
-  mutations: {
-    result(state, val) {
-      state.results.unshift(val)
-    },
-    eliminarResultado(state, val) {
-      state.results = state.results.filter(el => {
-        return el != val
-      })
-    }
-  },
-  actions: {
-    result({ commit }, proposicion) {
-      return new Promise((resolve, reject) => {
-        setTimeout(() => {
-          let propo = new Logica(proposicion)
-          if (!propo.esValida()) {
-            reject(propo.error)
-          } else {
-            propo.tablaDeVerdad()
-            commit('result', propo)
-            resolve()
-          }
-        }, 1000)
-
-      })
-    },
-    eliminarResultado({ commit }, res) {
-      return new Promise((resolve) => {
-        setTimeout(() => {
-          commit('eliminarResultado', res)
-          resolve()
-        }, 1000)
-      })
-    }
+  modules:{
+    log: LogicaProposicional,
+    rel: Relaciones
   }
 })

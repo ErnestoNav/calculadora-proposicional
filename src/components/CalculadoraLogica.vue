@@ -3,7 +3,7 @@
     <v-card-title>
       <v-text-field
         class="proposicion"
-        v-model="proposicion"
+        v-model="input"
         readonly
         solo
         outlined
@@ -88,7 +88,7 @@
             color="error--text"
             block
             @click="deleteLast"
-            :disabled="proposicionVacia"
+            :disabled="inputVacia"
           >
             <v-icon small>fa-backspace</v-icon></v-btn
           ></v-col
@@ -98,7 +98,7 @@
             color="error--text"
             block
             @click="allClear"
-            :disabled="proposicionVacia"
+            :disabled="inputVacia"
           >
             <v-icon small>fa-trash</v-icon></v-btn
           ></v-col
@@ -111,7 +111,7 @@
             color="pink--text text--lighten-3"
             block
              @click="addElement('≡')"
-            :disabled="proposicionVacia || proposicion.includes('≡')"
+            :disabled="inputVacia || input.includes('≡')"
           >
             ≡
           </v-btn>
@@ -122,7 +122,7 @@
             color="success--text"
             block
             @click="evaluar"
-            :disabled="proposicionVacia"
+            :disabled="inputVacia"
           >
             <v-icon small>fa-equals</v-icon>
           </v-btn>
@@ -133,44 +133,13 @@
 </template>
 
 <script>
-import bus from "@/bus";
+import {calculadora} from '../mixins/'
 export default {
-  name: "Calculadora",
-
+  name: "CalculadoraLogica",
+  mixins: [calculadora],
   data: () => ({
-    proposicion: "",
-    loading: false,
-  }),
-  computed: {
-    proposicionVacia() {
-      return this.proposicion.length == 0;
-    },
-  },
-  methods: {
-    addElement(v) {
-      this.proposicion += v;
-    },
-    deleteLast() {
-      this.proposicion = this.proposicion.slice(0, -1);
-    },
-    allClear() {
-      this.proposicion = "";
-    },
-    evaluar() {
-      this.loading = true;
-      this.$store
-        .dispatch("result", this.proposicion)
-        .then(()=>{
-          this.$vuetify.goTo(440, {duration: 400,offset: 0,easing: 'easeInOutCubic'})
-          this.allClear()
-        }).catch((e) => {
-          bus.$emit("error", e);
-        })
-        .finally(() =>{
-          this.loading = false
-        })
-    },
-  },
+    storeModule: 'log'
+  })
 };
 </script>
 <style lang="scss">

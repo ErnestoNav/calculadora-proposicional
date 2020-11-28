@@ -1,5 +1,5 @@
 module.exports = {
-  publicPath: '/calculadora-logica-proposicional',
+  publicPath: '/matematicas-discretas',
   "transpileDependencies": [
     "vuetify"
   ],
@@ -7,7 +7,7 @@ module.exports = {
     config
       .plugin('html')
       .tap(args => {
-        args[0].title = "Calculadora de Lógica Proposicional | Matemáticas Discretas";
+        args[0].title = "Matemáticas Discretas";
         return args;
       })
   }

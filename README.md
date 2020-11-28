@@ -1,8 +1,8 @@
-# calculadora
+# Matemáticas Discretas
 
 ## Live Preview
 
-[ernestoweb.dev/calculadora-logica-proposicional](https://ernestoweb.dev/calculadora-logica-proposicional/)
+[ernestoweb.dev/matematicas-discretas](https://ernestoweb.dev/matematicas-discretas/)
 
 ## Project setup
 ```

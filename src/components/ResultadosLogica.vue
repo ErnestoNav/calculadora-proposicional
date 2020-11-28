@@ -3,12 +3,12 @@
     class="resultados"
     :loading="loading"
     :disabled="loading"
-    v-if="$store.getters['results'].length > 0"
+    v-if="$store.getters['log/results'].length > 0"
   >
     <v-card-title> Resultados recientes </v-card-title>
     <v-card-text>
       <v-card
-        v-for="res in $store.getters['results']"
+        v-for="res in $store.getters['log/results']"
         :key="res.proposicion"
         class="mb-4"
         outlined
@@ -66,62 +66,14 @@
 </template>
 
 <script>
-import bus from "@/bus";
+import {resultados} from '../mixins/'
 export default {
-  name: "Resultados",
-
+  name: "ResultadosLogica",
+  mixins: [resultados],
   data: () => ({
-    loading: false,
-    months: [
-      "Enero",
-      "Febrero",
-      "Marzo",
-      "Abril",
-      "Mayo",
-      "Junio",
-      "Julio",
-      "Agosto",
-      "Septiembre",
-      "Octubre",
-      "Noviembre",
-      "Diciembre",
-    ],
+    storeModule: 'log'
   }),
-  computed: {
-    enMovil() {
-      return this.$vuetify.breakpoint.name == "xs";
-    },
-  },
   methods: {
-    getFormattedDate(date) {
-      let horas =
-        date.getHours() < 10 ? "0" + date.getHours() : date.getHours();
-      let minutos =
-        date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
-
-      return `${date.getDate()}/${this.months[date.getMonth()].substring(
-        0,
-        3
-      )}/${date.getFullYear()} - ${horas}:${minutos} hrs.`;
-    },
-    eliminarResultado(res) {
-      this.loading = true;
-      this.$store
-        .dispatch("eliminarResultado", res)
-        .then(() => {
-          this.$vuetify.goTo(440, {
-            duration: 400,
-            offset: 0,
-            easing: "easeInOutCubic",
-          });
-        })
-        .catch((e) => {
-          bus.$emit("error", e);
-        })
-        .finally(() => {
-          this.loading = false;
-        });
-    },
     clasesTh(idcol, res) {
       return {
         "d-none":
