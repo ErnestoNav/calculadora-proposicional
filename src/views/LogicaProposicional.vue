@@ -27,21 +27,10 @@
           </v-simple-table>
         </v-card>
       </v-col>
-      <v-col cols=12>
-        <ResultadosLogica/>
+      <v-col cols="12">
+        <ResultadosLogica />
       </v-col>
     </v-row>
-    <v-dialog v-model="dialog" max-width="325">
-      <v-alert
-        text
-        prominent
-        border="left"
-        colored-border
-        type="error"
-        class="ma-0 error-alert"
-        >{{ errorMsg }}</v-alert
-      >
-    </v-dialog>
   </v-container>
 </template>
 
@@ -49,20 +38,11 @@
 // @ is an alias to /src
 import CalculadoraLogica from "@/components/CalculadoraLogica";
 import ResultadosLogica from "@/components/ResultadosLogica";
-import {view} from '@/mixins/';
 export default {
   name: "LogicaProposicional",
-  mixins: [view],
   components: {
-    CalculadoraLogica, ResultadosLogica
-  }
+    CalculadoraLogica,
+    ResultadosLogica,
+  },
 };
 </script>
-<style lang="scss">
-.error-alert {
-  font-size: 1.2rem !important;
-  .v-icon {
-    margin-left: 6px;
-  }
-}
-</style>

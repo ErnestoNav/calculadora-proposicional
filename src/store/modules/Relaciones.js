@@ -4,9 +4,42 @@ const Relaciones = {
   namespaced: true,
   state: {
     results: [],
+    relaciones: {
+      tipos: {
+        eq: 'de Equivalencia',
+        tra: 'Transitiva',
+        sim: 'Simétrica',
+        ref: 'Reflexiva'
+      },
+      detalle: {
+        eq: {
+          title: 'Relación de Equivalencia',
+          img: '',
+          text: 'Una relación es de Equivalencia si es Transitiva, Simétrica y Reflexiva.'
+        },
+        tra: {
+          title: 'Relación Transitiva',
+          img: require('@/assets/relaciones/transitiva.jpg'),
+          text: 'Dado el conjunto A y una relación R, se dice que ésta es Transitiva si se cumple: siempre que ' +
+            'un elemento se relaciona con otro y este último con un tercero, entonces el primero se relaciona con el tercero. Es decir, si (a,b) y (b,c), entonces (a,c).'
+        },
+        sim: {
+          title: 'Relación Simétrica',
+          img: require('@/assets/relaciones/simetrica.jpg'),
+          text: 'Una relación R sobre un conjunto A, es Simétrica cuando se da que si un elemento está relacionado ' +
+            'con otro, entonces ese otro también está relacionado con él. Por ejemplo, es lo mismo tener (a,b) que tener (b,a).'
+        },
+        ref: {
+          title: 'Relación Reflexiva',
+          img: require('@/assets/relaciones/reflexiva.jpg'),
+          text: 'La relación Reflexiva, también conocida como refleja, es una relación R sobre un conjunto A, de manera que todo elemento de A ' +
+            'está relacionado consigo mismo, es decir: (a,a).'
+        }
+      }
+    },
     definicion: 'Una relación es la correspondencia entre dos conjuntos de un '
-    +'primer conjunto, llamado Dominio, con un segundo conjunto, donde a cada elemento del '
-    +'primer conjunto (Dominio), le corresponde al menos un elemento del segundo conjunto (Imagen o Codominio).',
+      + 'primer conjunto, llamado Dominio, con un segundo conjunto, donde a cada elemento del '
+      + 'primer conjunto (Dominio), le corresponde al menos un elemento del segundo conjunto (Imagen o Codominio).',
     simbolos: [
       {
         descripcion: 'Par ordenado.',
@@ -29,6 +62,12 @@ const Relaciones = {
     },
     definicion: state => {
       return state.definicion
+    },
+    tiposRelacion: state => {
+      return state.relaciones.tipos
+    },
+    detallesRelacion: state => {
+      return state.relaciones.detalle
     },
     results: state => {
       return state.results

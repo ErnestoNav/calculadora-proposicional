@@ -15,9 +15,34 @@
       >
         <v-card-text class="text-center">
           <div>{{ getFormattedDate(res.date) }}</div>
-          <!--<p class="subtitle text-md-h5 text--primary wide-text">{{'C={'+ res.conjunto +'}'}}</p>-->
-          <p class="subtitle text-md-h5 text--primary wide-text">{{'R={'+ res.relacion +'}'}}</p>
-          <p>{{ res.resultado.tipo }}</p>
+          <p class="subtitle text-md-h5 text--primary wide-text">
+            {{ "R={" + res.relacion + "}" }}
+          </p>
+          <p>
+            Relación
+            <v-tooltip
+              bottom color="secondary"
+              v-for="(tipo, idx) in res.resultado.tipo"
+              :key="res.resultado.relacion + tipo"
+              :disabled="$vuetify.breakpoint.xs"
+            >
+              <template v-slot:activator="{ on, attrs }">
+                <a
+                 v-bind="attrs" v-on="on"
+                @click="verDetalle(tipo)"
+                class="ver-detalle yellow--text text-decoration-underline"
+                >{{
+                  $store.getters["rel/tiposRelacion"][tipo] +
+                  (idx + 1 == res.resultado.tipo.length
+                    ? ""
+                    : idx + 2 == res.resultado.tipo.length
+                    ? " y "
+                    : ", ")
+                }}</a>
+              </template>
+              <span>Ver</span>
+            </v-tooltip>
+          </p>
           <v-btn
             color="error"
             text
@@ -50,9 +75,9 @@
                   :key="idrow"
                   class="text-center"
                 >
-                <td class="wide-text variables">
-                  {{ res.variablesBase[idrow] }}
-                </td>
+                  <td class="wide-text variables">
+                    {{ res.variablesBase[idrow] }}
+                  </td>
                   <td
                     v-for="(r, idr) in row"
                     :key="idr"
@@ -71,36 +96,52 @@
 </template>
 
 <script>
-
-import {resultados} from '../mixins/'
+import bus from "@/bus";
+import { resultados } from "../mixins/";
 export default {
   name: "ResultadosRelacion",
   mixins: [resultados],
   data: () => ({
-    storeModule: 'rel'
+    storeModule: "rel",
   }),
   methods: {
     clasesTh(idcol, res) {
       return {
-          idcol,res
+        idcol,
+        res,
       };
     },
     clasesTd(idr, res) {
-      
       return {
-        idr,res  
+        idr,
+        res,
       };
+    },
+    verDetalle(tipo) {
+      let detalle = [];
+      if (tipo === "eq") {
+        for (let key in this.$store.getters["rel/detallesRelacion"]) {
+          detalle.push(this.$store.getters["rel/detallesRelacion"][key]);
+        }
+      } else {
+        detalle.push(this.$store.getters["rel/detallesRelacion"][tipo]);
+      }
+      bus.$emit("verDetalle", detalle);
     },
   },
 };
 </script>
 <style lang="scss">
 .resultados {
-  th, .variables{
+  .ver-detalle {
+    cursor: pointer;
+  }
+  th,
+  .variables {
     font-size: 1.07rem !important;
     background-color: rgba(#41b6eb, 0.5);
   }
-  .variables{
+  .variables {
     width: 32px;
   }
   td {

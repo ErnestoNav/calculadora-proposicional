@@ -1,9 +1,50 @@
 import { Logica } from '../../LogicaProposicional'
 
 const LogicaProposicional = {
-  namespaced:true,
+  namespaced: true,
   state: {
     results: [],
+    proposiciones: {
+      tipos: {
+        T: 'Tautología',
+        C: 'Contradicción',
+        X: 'Contingencia',
+        EQ: 'Equivalentes',
+        NE: 'No equivalentes'
+      },
+      detalle: {
+        T: {
+          title: 'Tautología',
+          img: require('@/assets/logica-proposicional/tautologia.jpg'),
+          text: 'Una proposición compuesta es tautología si todos sus valores de verdad son verdaderos, ' +
+            'independientemente de los valores de verdad de las variables proposicionales que la componen.'
+        },
+        C: {
+          title: 'Contradicción',
+          img: require('@/assets/logica-proposicional/contradiccion.jpg'),
+          text: 'Una proposición compuesta es una contradicción si todos sus valores de verdad son falsos, ' +
+            'independientemente de los valores de verdad de las variables proposicionales que la componen.'
+        },
+        X: {
+          title: 'Contingencia',
+          img: require('@/assets/logica-proposicional/contingencia.jpg'),
+          text: 'Una proposición compuesta es una contingencia cuando sus valores de verdad pueden ser verdaderos ' +
+            'o falsos, dependiendo de los valores de verdad de las variables proposicionales que la componen.'
+        },
+        EQ:{
+          title: 'Equivalentes',
+          img: require('@/assets/logica-proposicional/equivalencia.jpg'),
+          text: 'Dos proposiciones lógicas son equivalentes si tienen los mismos valores de verdad para todos '+
+          'los posibles valores de verdad de sus componentes atómicos (proposición simple).'
+        },
+        NE:{
+          title: 'No equivalentes',
+          img: require('@/assets/logica-proposicional/no-equivalencia.jpg'),
+          text: 'Se dice que dos proposiciones lógicas NO son equivalentes si tienen distintos valores de verdad para todos '+
+          'los posibles valores de verdad de sus componentes atómicos (proposición simple).'
+        }
+      }
+    },
     conectores: [
       {
         tipo: 'Negación',
@@ -38,6 +79,12 @@ const LogicaProposicional = {
   getters: {
     conectores: state => {
       return state.conectores
+    },
+    tiposProposicion: state => {
+      return state.proposiciones.tipos
+    },
+    detallesProposicion: state => {
+      return state.proposiciones.detalle
     },
     results: state => {
       return state.results
@@ -79,4 +126,4 @@ const LogicaProposicional = {
     }
   }
 }
-export {LogicaProposicional}
+export { LogicaProposicional }

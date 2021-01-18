@@ -232,14 +232,14 @@ class Logica {
     }
     let tipo = ''
     if(falacias == 0){
-      tipo = 'Tautología'
+      tipo = 'T'
     }else if(verdades == 0){
-      tipo = 'Contradicción'
+      tipo = 'C'
     }else{
-      tipo = 'Contingencia'
+      tipo = 'X'
     }
     if(this.proposicion.includes('≡')){
-      tipo = (tipo == 'Tautología') ? 'Equivalentes' : 'No equivalentes'
+      tipo = (tipo == 'T') ? 'EQ' : 'NE'
     }
     this.resultado = { columnas: cols, filas: rows, tipo }
   }

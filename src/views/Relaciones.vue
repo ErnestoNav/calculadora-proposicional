@@ -34,17 +34,6 @@
         <ResultadosRelacion/>
       </v-col>
     </v-row>
-    <v-dialog v-model="dialog" max-width="325">
-      <v-alert
-        text
-        prominent
-        border="left"
-        colored-border
-        type="error"
-        class="ma-0 error-alert"
-        >{{ errorMsg }}</v-alert
-      >
-    </v-dialog>
   </v-container>
 </template>
 
@@ -52,10 +41,9 @@
 // @ is an alias to /src
 import CalculadoraRelaciones from "@/components/CalculadoraRelaciones";
 import ResultadosRelacion from "@/components/ResultadosRelacion";
-import {view} from '@/mixins/';
+
 export default {
   name: "LogicaProposicional",
-  mixins: [view],
   components: {
     CalculadoraRelaciones, ResultadosRelacion
   }

@@ -18,7 +18,6 @@ class Relacion {
   }
   matrizRelacional() {
     this.conjunto = this.obtenerConjunto(this.relacion)
-    console.log(this.conjunto)
     let matriz = []
     for (let i = 0; i < this.conjunto.length; i++) {
       matriz[i] = []
@@ -59,12 +58,9 @@ class Relacion {
         // Si se encuentra un resultado se buscan las coincidencias con el segundo término
         if (this.resultado.matriz[i][j]) {
           cumple = false
-          console.log(i,j,this.resultado.matriz[i][j])
           for (let k = 0; k < this.resultado.matriz.length; k++) {
             // Si existe un (j,k) y un (i,k) se infiere que es transitiva, por lo que se pasa a la siguiente
             if(this.resultado.matriz[j][k] && this.resultado.matriz[i][k]){
-              console.log(j,k,this.resultado.matriz[j][k],this.resultado.matriz[j][k],this.resultado.matriz[i][k])
-              //
               cumple = true
               usados.push(this.resultado.matriz[i][j],)
             }
@@ -83,21 +79,20 @@ class Relacion {
   }
   obtenerTipo() {
     let tipos = []
-    let tipo = 'Relación '
     if (this.isEquivalencia()) {
-      return 'Relación de Equivalencia'
+      return ['eq']
     } else if (!this.isReflexiva() && !this.isSimetrica() && !this.isTransitiva()) {
-      return 'Relación'
+      return []
     }
-    this.isReflexiva() ? tipos.push('Reflexiva') : null
-    this.isSimetrica() ? tipos.push('Simétrica') : null
-    this.isTransitiva() ? tipos.push('Transitiva') : null
+    this.isReflexiva() ? tipos.push('ref') : null
+    this.isSimetrica() ? tipos.push('sim') : null
+    this.isTransitiva() ? tipos.push('tra') : null
 
-    for (let i = 0; i < tipos.length; i++) {
+    /*for (let i = 0; i < tipos.length; i++) {
       tipo += (i === 0) ? tipos[i] : ' y ' + tipos[i]
-    }
+    }*/
 
-    return tipo
+    return tipos
   }
   obtenerConjunto(rel) {
     let relArray = rel.split('')

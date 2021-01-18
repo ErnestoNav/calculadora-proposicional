@@ -16,7 +16,26 @@
         <v-card-text class="text-center">
           <div>{{ getFormattedDate(res.date) }}</div>
           <p class="headline text--primary wide-text">{{ res.proposicion }}</p>
-          <p>{{ res.resultado.tipo }}</p>
+          <p>
+            <v-tooltip
+              bottom
+              color="secondary"
+              :disabled="$vuetify.breakpoint.xs"
+            >
+              <template v-slot:activator="{ on, attrs }">
+                <a
+                  v-bind="attrs"
+                  v-on="on"
+                  @click="verDetalle(res.resultado.tipo)"
+                  class="ver-detalle yellow--text text-decoration-underline"
+                  >{{
+                    $store.getters["log/tiposProposicion"][res.resultado.tipo]
+                  }}</a
+                >
+              </template>
+              <span>Ver</span>
+            </v-tooltip>
+          </p>
           <v-btn
             color="error"
             text
@@ -66,12 +85,13 @@
 </template>
 
 <script>
-import {resultados} from '../mixins/'
+import bus from "@/bus";
+import { resultados } from "../mixins/";
 export default {
   name: "ResultadosLogica",
   mixins: [resultados],
   data: () => ({
-    storeModule: 'log'
+    storeModule: "log",
   }),
   methods: {
     clasesTh(idcol, res) {
@@ -91,14 +111,15 @@ export default {
         "d-none": idr == res.proposicion && res.proposicion.includes("≡"),
         equiv: equiv,
         "equiv-true":
-          equiv &&
-          res.tipo == "equivalencia" &&
-          res.resultado.tipo == "Equivalentes",
+          equiv && res.tipo == "equivalencia" && res.resultado.tipo == "EQ",
         "equiv-false":
-          equiv &&
-          res.tipo == "equivalencia" &&
-          res.resultado.tipo == "No equivalentes",
+          equiv && res.tipo == "equivalencia" && res.resultado.tipo == "NE",
       };
+    },
+    verDetalle(tipo) {
+      let detalle = [];
+      detalle.push(this.$store.getters["log/detallesProposicion"][tipo]);
+      bus.$emit("verDetalle", detalle);
     },
   },
 };
