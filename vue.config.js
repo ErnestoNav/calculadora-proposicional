@@ -10,5 +10,10 @@ module.exports = {
         args[0].title = "Matemáticas Discretas";
         return args;
       })
+  },
+  pwa: {
+    workboxOptions: {
+      skipWaiting: true
+    }
   }
 }
